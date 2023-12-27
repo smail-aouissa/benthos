@@ -17,9 +17,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: "contains(github.event.inputs.platform, 'linux')"
+    if: "ithub.event.inputs.platform == 'linux'"
     steps:
-
     - name: Check Out Repo
       uses: actions/checkout@v4
 
