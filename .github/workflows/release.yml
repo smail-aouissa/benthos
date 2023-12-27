@@ -43,9 +43,22 @@ jobs:
       with:
         install-only: true
 
+    - name: Google auth
+      uses: 'google-github-actions/auth@v2'
+      with:
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+    - name: Set up Cloud SDK
+      uses: 'google-github-actions/setup-gcloud@v2'
+      with:
+        project_id: 'kameleons-staging'
+
     - name: Build app
       run: |
-        goreleaser release --snapshot --timeout 120m
+        goreleaser release --single-target --snapshot --timeout 30m -o benthos
         ls
         cd dist
-        lad
+        ls
+
+    - name: Upload benthos build to Google storage
+      run: gsutil cp -r benthos gs://kameleons-staging.appspot.com/benthos/benthos_new
