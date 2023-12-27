@@ -56,7 +56,7 @@ jobs:
 
     - name: Build app
       run: |
-        goreleaser release --single-target --snapshot --timeout 30m -o benthos
+        goreleaser release --snapshot --timeout 30m -o benthos --single-target
         ls
         cd target/dist
         ls
